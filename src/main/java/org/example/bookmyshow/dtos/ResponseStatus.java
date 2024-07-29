@@ -1,4 +1,6 @@
 package org.example.bookmyshow.dtos;
 
-public class ResponseStatus {
+public enum ResponseStatus {
+    SUCCESS,
+    FAILURE
 }

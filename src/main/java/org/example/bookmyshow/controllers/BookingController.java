@@ -2,6 +2,11 @@ package org.example.bookmyshow.controllers;
 
 import org.example.bookmyshow.dtos.BookMovieRequestDto;
 import org.example.bookmyshow.dtos.BookMovieResponseDto;
+import org.example.bookmyshow.dtos.ResponseStatus;
+import org.example.bookmyshow.exceptions.ShowNotFoundException;
+import org.example.bookmyshow.exceptions.UserNotFoundException;
+import org.example.bookmyshow.models.Booking;
+import org.example.bookmyshow.models.BookingStatus;
 import org.example.bookmyshow.services.BookingService;
 import org.springframework.stereotype.Controller;
 
@@ -15,13 +20,21 @@ public class BookingController {
     }
 
     public BookMovieResponseDto bookingMovie(BookMovieRequestDto bookMovieRequestDto) {
-        bookingService.bookMovie(
-                bookMovieRequestDto.getUserId(),
-                bookMovieRequestDto.getShowId(),
-                bookMovieRequestDto.getShowSeatIds()
-        );
+        BookMovieResponseDto responseDto = new BookMovieResponseDto();
+        try
+        {
+            Booking booking = bookingService.bookMovie(
+                    bookMovieRequestDto.getUserId(),
+                    bookMovieRequestDto.getShowId(),
+                    bookMovieRequestDto.getShowSeatIds()
+            );
 
-        return null;
+            responseDto.setBooking(booking);
+            responseDto.setResponseStatus(ResponseStatus.SUCCESS);
+        }catch (Exception ex){
+            responseDto.setResponseStatus(ResponseStatus.FAILURE);
+        }
+        return responseDto;
     }
 
 }

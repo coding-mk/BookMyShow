@@ -1,9 +1,6 @@
 package org.example.bookmyshow.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -24,5 +21,8 @@ public class Booking extends BaseModel {
 
     @OneToMany
     private List<Payment> payments;
+
+    @Enumerated(EnumType.ORDINAL)
+    private BookingStatus bookingStatus;
 
 }
