@@ -3,10 +3,7 @@ package org.example.bookmyshow.controllers;
 import org.example.bookmyshow.dtos.BookMovieRequestDto;
 import org.example.bookmyshow.dtos.BookMovieResponseDto;
 import org.example.bookmyshow.dtos.ResponseStatus;
-import org.example.bookmyshow.exceptions.ShowNotFoundException;
-import org.example.bookmyshow.exceptions.UserNotFoundException;
 import org.example.bookmyshow.models.Booking;
-import org.example.bookmyshow.models.BookingStatus;
 import org.example.bookmyshow.services.BookingService;
 import org.springframework.stereotype.Controller;
 

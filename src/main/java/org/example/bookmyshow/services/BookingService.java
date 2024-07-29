@@ -3,6 +3,7 @@ package org.example.bookmyshow.services;
 import org.example.bookmyshow.exceptions.ShowNotFoundException;
 import org.example.bookmyshow.exceptions.UserNotFoundException;
 import org.example.bookmyshow.models.*;
+import org.example.bookmyshow.repositories.BookingRepository;
 import org.example.bookmyshow.repositories.ShowRepository;
 import org.example.bookmyshow.repositories.ShowSeatRepository;
 import org.example.bookmyshow.repositories.UserRepository;
@@ -20,15 +21,18 @@ public class BookingService {
     private UserRepository userRepository;
     private ShowRepository showRepository;
     private ShowSeatRepository showSeatRepository;
+    private BookingRepository bookingRepository;
     private PriceCalculatorService priceCalculatorService;
 
     public BookingService(UserRepository userRepository,
                           ShowRepository showRepository,
                           ShowSeatRepository showSeatRepository,
+                          BookingRepository bookingRepository,
                           PriceCalculatorService priceCalculatorService){
         this.userRepository = userRepository;
         this.showRepository = showRepository;
         this.showSeatRepository = showSeatRepository;
+        this.bookingRepository = bookingRepository;
         this.priceCalculatorService = priceCalculatorService;
 
     }
@@ -72,6 +76,6 @@ public class BookingService {
         booking.setCreatedAt(new Date());
         booking.setAmount(priceCalculatorService.calculatePrice(showSeats, show));
 
-        return booking;
+        return  bookingRepository.save(booking);
     }
 }
